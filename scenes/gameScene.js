@@ -1,0 +1,74 @@
+class gameScene extends Phaser.Scene {
+    constructor() {
+        super("gameScene")
+    }
+    preload() {
+        this.load.image("frame", "assets/images/frame.png")
+        this.load.image('background1', 'assets/images/background_1.png');
+        this.load.image('foreground1', 'assets/images/foreground_1.png');
+        this.load.image('background2', 'assets/images/background_2.png');
+        this.load.image('foreground2', 'assets/images/foreground_2.png');
+        this.load.image('background3', 'assets/images/background_3.png');
+        this.load.image('snowbottomui', 'assets/images/ui_snow_cards.png');
+        this.load.image('waterbottomui', 'assets/images/ui_water_cards.png');
+        this.load.image('firebottomui', 'assets/images/ui_fire_cards.png');
+        this.load.image('snowtimerbase', 'assets/images/snow_timer/base.png');
+        this.load.image('watertimerbase', 'assets/images/water_timer/base.png');
+        this.load.image('firetimerbase', 'assets/images/fire_timer/base.png');
+        this.load.audio('backgroundmusicgame', 'sounds/mus_mg_201303_cjsnow_gamewindamb.mp3');
+        this.load.spritesheet('snowninja_idle', 'assets/images/snow_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
+    }
+    create() {
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.x = 0;
+        this.y = 0;
+        if (scenething === 1) {
+            this.add.image(0, 0, 'background1').setOrigin(0, 0)
+            this.add.image(100, 80, 'frame').setOrigin(0, 0)
+            this.add.image(0, 298, 'foreground1').setOrigin(0, 0)
+        } else if (scenething === 2) {
+            this.add.image(0, 0, 'background2').setOrigin(0, 0)
+            this.add.image(100, 80, 'frame').setOrigin(0, 0)
+            this.add.image(0, 298, 'foreground2').setOrigin(0, 0)
+        } else {
+            this.add.image(0, 0, 'background3').setOrigin(0, 0)
+            this.add.image(100, 80, 'frame').setOrigin(0, 0)
+        }
+        if (playerelement === "snow") {
+            this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
+            player = this.add.sprite(column[this.x], row[this.y], "snowninja_idle").setOrigin(0, 0);
+            this.add.image(326.5, 0, 'snowtimerbase').setOrigin(0, 0)
+        } else if (playerelement === "water") {
+            this.add.image(222, 410, 'waterbottomui').setOrigin(0, 0)
+            this.add.image(326.5, 0, 'watertimerbase').setOrigin(0, 0)
+        } else if (playerelement === "fire") {
+            this.add.image(222, 413, 'firebottomui').setOrigin(0, 0)
+            this.add.image(326.5, 0, 'firetimerbase').setOrigin(0, 0)
+        }
+        this.sound.play('backgroundmusicgame', bgms);
+        this.anims.create({
+            key: 'snowninja_idle_animation',
+            frames: this.anims.generateFrameNumbers('snowninja_idle', { start: 0, end: 9 }),
+            frameRate: 5,
+            repeat: -1
+        });
+        player.anims.play('snowninja_idle_animation')
+
+
+    }
+    update() {
+        if (this.cursors.left.isDown) {
+            player.x -= 4
+        }
+        if (this.cursors.right.isDown) {
+            player.x += 4
+        }
+        if (this.cursors.up.isDown) {
+            player.y -= 4
+        }
+        if (this.cursors.down.isDown) {
+            player.y += 4
+        }
+
+    }
+}
