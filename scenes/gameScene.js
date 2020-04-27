@@ -38,25 +38,25 @@ class gameScene extends Phaser.Scene {
             this.add.image(0, 0, 'background3').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
         }
-            this.tank = this.add.sprite(column[7], row[this.y], "tank_idle").setOrigin(0, 0);
+            this.tank = this.add.sprite(590, 100, "tank_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
             this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
-            player = this.add.sprite(column[this.x], row[this.y], "snowninja_idle").setOrigin(0, 0);
-            player2 = this.add.sprite(column[this.x], row[this.y+3], "fireninja_idle").setOrigin(0, 0);
-            player3 = this.add.sprite(column[this.x], row[this.y-3], "waterninja_idle").setOrigin(0, 0);
+            player = this.add.sprite(100, 100, "snowninja_idle").setOrigin(0, 0);
+            player2 = this.add.sprite(100, 200, "fireninja_idle").setOrigin(0, 0);
+            player3 = this.add.sprite(100, 300, "waterninja_idle").setOrigin(0, 0);
             this.add.image(326.5, 0, 'snowtimerbase').setOrigin(0, 0)
         } else if (playerelement === "water") {
             this.add.image(222, 410, 'waterbottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'watertimerbase').setOrigin(0, 0)
-            player = this.add.sprite(column[this.x], row[this.y], "waterninja_idle").setOrigin(0, 0);
-            player2 = this.add.sprite(column[this.x], row[this.y+3], "fireninja_idle").setOrigin(0, 0);
-            player3 = this.add.sprite(column[this.x], row[this.y-3], "snowninja_idle").setOrigin(0, 0);
+            player = this.add.sprite(100, 100, "waterninja_idle").setOrigin(0, 0);
+            player2 = this.add.sprite(100, 200, "fireninja_idle").setOrigin(0, 0);
+            player3 = this.add.sprite(100, 300, "snowninja_idle").setOrigin(0, 0);
         } else if (playerelement === "fire") {
             this.add.image(222, 413, 'firebottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'firetimerbase').setOrigin(0, 0)
-            player = this.add.sprite(column[this.x], row[this.y], "fireninja_idle").setOrigin(0, 0);
-            player2 = this.add.sprite(column[this.x], row[this.y+3], "waterninja_idle").setOrigin(0, 0);
-            player3 = this.add.sprite(column[this.x], row[this.y-3], "snowninja_idle").setOrigin(0, 0);
+            player = this.add.sprite(100, 100, "fireninja_idle").setOrigin(0, 0);
+            player2 = this.add.sprite(100, 200, "waterninja_idle").setOrigin(0, 0);
+            player3 = this.add.sprite(100, 300, "snowninja_idle").setOrigin(0, 0);
         }
         this.sound.play('backgroundmusicgame', bgms);
         this.anims.create({

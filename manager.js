@@ -14,8 +14,3 @@ var playerelement = "snow"
 var player;
 var player2;
 var player3;
-
-
-var column = [100,170,240,310,380,450,520,590,660]
-
-var row = [100,150,200,250,300]
