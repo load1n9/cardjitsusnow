@@ -1,3 +1,4 @@
+
 class gameScene extends Phaser.Scene {
     constructor() {
         super("gameScene")
@@ -19,6 +20,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('snowninja_idle', 'assets/images/snow_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
         this.load.spritesheet('fireninja_idle', 'assets/images/fire_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
         this.load.spritesheet('waterninja_idle', 'assets/images/water_ninja/idlecustom.png', { frameWidth: 88, frameHeight: 92 });
+        this.load.spritesheet('tank_idle', 'assets/images/enemy/tankidlecustom.png', { frameWidth: 100, frameHeight: 100 });
     }
     create() {
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -26,16 +28,17 @@ class gameScene extends Phaser.Scene {
         this.y = 0;
         if (scenething === 1) {
             this.add.image(0, 0, 'background1').setOrigin(0, 0)
-            this.add.image(100, 80, 'frame').setOrigin(0, 0)
+            //this.add.image(100, 80, 'frame').setOrigin(0, 0)
             this.add.image(0, 298, 'foreground1').setOrigin(0, 0)
         } else if (scenething === 2) {
             this.add.image(0, 0, 'background2').setOrigin(0, 0)
-            this.add.image(100, 80, 'frame').setOrigin(0, 0)
+            //this.add.image(100, 80, 'frame').setOrigin(0, 0)
             this.add.image(0, 298, 'foreground2').setOrigin(0, 0)
         } else {
             this.add.image(0, 0, 'background3').setOrigin(0, 0)
-            this.add.image(100, 80, 'frame').setOrigin(0, 0)
+            //this.add.image(100, 80, 'frame').setOrigin(0, 0)
         }
+            this.tank = this.add.sprite(column[7], row[this.y], "tank_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
             this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(column[this.x], row[this.y], "snowninja_idle").setOrigin(0, 0);
@@ -68,6 +71,13 @@ class gameScene extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
+        this.anims.create({
+            key: 'tank_idle_animation',
+            frames: this.anims.generateFrameNumbers('tank_idle', { start: 0, end: 15 }),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.tank.anims.play('tank_idle_animation')
         if (playerelement === "fire"){
             player.anims.play('fireninja_idle_animation')
         } else if (playerelement === "snow"){
