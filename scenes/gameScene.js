@@ -17,6 +17,8 @@ class gameScene extends Phaser.Scene {
         this.load.image('firetimerbase', 'assets/images/fire_timer/base.png');
         this.load.audio('backgroundmusicgame', 'sounds/mus_mg_201303_cjsnow_gamewindamb.mp3');
         this.load.spritesheet('snowninja_idle', 'assets/images/snow_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
+        this.load.spritesheet('fireninja_idle', 'assets/images/fire_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
+        this.load.spritesheet('waterninja_idle', 'assets/images/water_ninja/idlecustom.png', { frameWidth: 88, frameHeight: 92 });
     }
     create() {
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -41,9 +43,11 @@ class gameScene extends Phaser.Scene {
         } else if (playerelement === "water") {
             this.add.image(222, 410, 'waterbottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'watertimerbase').setOrigin(0, 0)
+            player = this.add.sprite(column[this.x], row[this.y], "waterninja_idle").setOrigin(0, 0);
         } else if (playerelement === "fire") {
             this.add.image(222, 413, 'firebottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'firetimerbase').setOrigin(0, 0)
+            player = this.add.sprite(column[this.x], row[this.y], "fireninja_idle").setOrigin(0, 0);
         }
         this.sound.play('backgroundmusicgame', bgms);
         this.anims.create({
@@ -52,7 +56,25 @@ class gameScene extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
-        player.anims.play('snowninja_idle_animation')
+        this.anims.create({
+            key: 'fireninja_idle_animation',
+            frames: this.anims.generateFrameNumbers('fireninja_idle', { start: 0, end: 2 }),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'waterninja_idle_animation',
+            frames: this.anims.generateFrameNumbers('waterninja_idle', { start: 0, end: 8 }),
+            frameRate: 5,
+            repeat: -1
+        });
+        if (playerelement === "fire"){
+            player.anims.play('fireninja_idle_animation')
+        } else if (playerelement === "snow"){
+            player.anims.play('snowninja_idle_animation')
+        } else  {
+            player.anims.play('waterninja_idle_animation')
+        }
 
 
     }
