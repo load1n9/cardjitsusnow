@@ -12,6 +12,8 @@ var scenething = 1;
 var playerelement = "snow"
 
 var player;
+var player2;
+var player3;
 
 
 var column = [100,170,240,310,380,450,520,590,660]

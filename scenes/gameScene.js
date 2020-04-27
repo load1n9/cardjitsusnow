@@ -42,15 +42,21 @@ class gameScene extends Phaser.Scene {
         if (playerelement === "snow") {
             this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(column[this.x], row[this.y], "snowninja_idle").setOrigin(0, 0);
+            player2 = this.add.sprite(column[this.x], row[this.y+3], "fireninja_idle").setOrigin(0, 0);
+            player3 = this.add.sprite(column[this.x], row[this.y-3], "waterninja_idle").setOrigin(0, 0);
             this.add.image(326.5, 0, 'snowtimerbase').setOrigin(0, 0)
         } else if (playerelement === "water") {
             this.add.image(222, 410, 'waterbottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'watertimerbase').setOrigin(0, 0)
             player = this.add.sprite(column[this.x], row[this.y], "waterninja_idle").setOrigin(0, 0);
+            player2 = this.add.sprite(column[this.x], row[this.y+3], "fireninja_idle").setOrigin(0, 0);
+            player3 = this.add.sprite(column[this.x], row[this.y-3], "snowninja_idle").setOrigin(0, 0);
         } else if (playerelement === "fire") {
             this.add.image(222, 413, 'firebottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'firetimerbase').setOrigin(0, 0)
             player = this.add.sprite(column[this.x], row[this.y], "fireninja_idle").setOrigin(0, 0);
+            player2 = this.add.sprite(column[this.x], row[this.y+3], "waterninja_idle").setOrigin(0, 0);
+            player3 = this.add.sprite(column[this.x], row[this.y-3], "snowninja_idle").setOrigin(0, 0);
         }
         this.sound.play('backgroundmusicgame', bgms);
         this.anims.create({
@@ -80,10 +86,16 @@ class gameScene extends Phaser.Scene {
         this.tank.anims.play('tank_idle_animation')
         if (playerelement === "fire"){
             player.anims.play('fireninja_idle_animation')
+            player2.anims.play('waterninja_idle_animation')
+            player3.anims.play('snowninja_idle_animation')
         } else if (playerelement === "snow"){
             player.anims.play('snowninja_idle_animation')
+            player2.anims.play('fireninja_idle_animation')
+            player3.anims.play('waterninja_idle_animation')
         } else  {
             player.anims.play('waterninja_idle_animation')
+            player2.anims.play('fireninja_idle_animation')
+            player3.anims.play('snowninja_idle_animation')
         }
 
 
