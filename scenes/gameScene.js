@@ -120,9 +120,11 @@ class gameScene extends Phaser.Scene {
             for (let y = 1; y < 6; y++) {
                 for (let x = 1; x < 10; x++) {
                     gridthing[y][x].on('pointerdown', () => {
+                        if ((gridthing[y][x].x -player.x <= 200)&&(gridthing[y][x].y -player.y <= 200)) {
                             player.x = gridthing[y][x].x
                             player.y = gridthing[y][x].y
                             this.turn = false
+                        }
                     });
                 }
             }
