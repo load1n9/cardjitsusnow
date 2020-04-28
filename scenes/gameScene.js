@@ -4,6 +4,7 @@ class gameScene extends Phaser.Scene {
         super("gameScene")
     }
     preload() {
+        this.load.image('tile', 'assets/images/tile_move.png')
         this.load.image("frame", "assets/images/frame.png")
         this.load.image('background1', 'assets/images/background_1.png');
         this.load.image('foreground1', 'assets/images/foreground_1.png');
@@ -26,6 +27,7 @@ class gameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.x = 0;
         this.y = 0;
+        this.turn = true;
         if (scenething === 1) {
             this.add.image(0, 0, 'background1').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
@@ -38,7 +40,7 @@ class gameScene extends Phaser.Scene {
             this.add.image(0, 0, 'background3').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
         }
-            this.tank = this.add.sprite(590, 100, "tank_idle").setOrigin(0, 0);
+        this.tank = this.add.sprite(590, 100, "tank_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
             this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(100, 100, "snowninja_idle").setOrigin(0, 0);
@@ -84,18 +86,27 @@ class gameScene extends Phaser.Scene {
             repeat: -1
         });
         this.tank.anims.play('tank_idle_animation')
-        if (playerelement === "fire"){
+        if (playerelement === "fire") {
             player.anims.play('fireninja_idle_animation')
             player2.anims.play('waterninja_idle_animation')
             player3.anims.play('snowninja_idle_animation')
-        } else if (playerelement === "snow"){
+        } else if (playerelement === "snow") {
             player.anims.play('snowninja_idle_animation')
             player2.anims.play('fireninja_idle_animation')
             player3.anims.play('waterninja_idle_animation')
-        } else  {
+        } else {
             player.anims.play('waterninja_idle_animation')
             player2.anims.play('fireninja_idle_animation')
             player3.anims.play('snowninja_idle_animation')
+        }
+        this.creategrid = function() {
+            for (let y = 1; y < 6; y++) {
+                for (let x = 1; x < 10; x++) {
+                    let xpos = x * 70;
+                    let ypos = y * 70;
+                    gridthing[y][x] = this.add.image(xpos, ypos, 'tile').setOrigin(0, 0).setInteractive();
+                }
+            }
         }
 
 
@@ -113,6 +124,17 @@ class gameScene extends Phaser.Scene {
         if (this.cursors.down.isDown) {
             player.y += 4
         }
-
+        if (this.turn) {
+            this.creategrid()
+            this.turn  = false
+            for (let y = 1; y < 6; y++) {
+                for (let x = 1; x < 10; x++) {
+                    gridthing[y][x].on('pointerdown', () => {
+                        player.x = gridthing[y][x].x
+                        player.y = gridthing[y][x].y
+                    });
+                }
+            }
+        }
     }
 }
