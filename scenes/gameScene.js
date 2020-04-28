@@ -25,7 +25,6 @@ class gameScene extends Phaser.Scene {
     }
     create() {
         this.somevar = true;
-        this.cursors = this.input.keyboard.createCursorKeys();
         this.x = 0;
         this.y = 0;
         this.turn = true;
@@ -113,18 +112,6 @@ class gameScene extends Phaser.Scene {
 
     }
     update() {
-        if (this.cursors.left.isDown) {
-            player.x -= 4
-        }
-        if (this.cursors.right.isDown) {
-            player.x += 4
-        }
-        if (this.cursors.up.isDown) {
-            player.y -= 4
-        }
-        if (this.cursors.down.isDown) {
-            player.y += 4
-        }
         if (this.somevar) {
             this.creategrid()
             this.somevar = false
