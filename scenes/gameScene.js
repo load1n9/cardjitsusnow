@@ -24,6 +24,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('tank_idle', 'assets/images/enemy/tankidlecustom.png', { frameWidth: 100, frameHeight: 100 });
     }
     create() {
+        this.somevar = true;
         this.cursors = this.input.keyboard.createCursorKeys();
         this.x = 0;
         this.y = 0;
@@ -124,15 +125,25 @@ class gameScene extends Phaser.Scene {
         if (this.cursors.down.isDown) {
             player.y += 4
         }
-        if (this.turn) {
+        if (this.somevar) {
             this.creategrid()
-            this.turn  = false
+            this.somevar = false
+        }
+        if (this.turn === true) {
             for (let y = 1; y < 6; y++) {
                 for (let x = 1; x < 10; x++) {
                     gridthing[y][x].on('pointerdown', () => {
-                        player.x = gridthing[y][x].x
-                        player.y = gridthing[y][x].y
+                            player.x = gridthing[y][x].x
+                            player.y = gridthing[y][x].y
+                            this.turn = false
                     });
+                }
+            }
+        } else {
+            for (let y = 1; y < 6; y++) {
+                for (let x = 1; x < 10; x++) {
+                    gridthing[y][x].off('pointerdown')
+                    gridthing[y][x].destroy()
                 }
             }
         }
