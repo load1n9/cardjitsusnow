@@ -12,6 +12,7 @@ class menuScene extends Phaser.Scene {
 
     }
     create() {
+        socket = io();
         this.add.image(0, 0, 'background').setOrigin(0, 0)
         let menuwater = this.add.image(-30, 0, 'water_normal').setOrigin(0, 0).setInteractive();
         let menusnow = this.add.image(230, 0, 'snow_normal').setOrigin(0, 0).setInteractive();

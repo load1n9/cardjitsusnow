@@ -10,7 +10,7 @@ var scenething = 1;
 
 
 var playerelement = "snow"
-
+var socket;
 var player;
 var player2;
 var player3;
