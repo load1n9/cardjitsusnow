@@ -21,3 +21,14 @@ var gridthing = [
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
 ]
+
+function randomint(a, b) {
+    if (a > b) {
+      var c = a;
+      a = b;
+      b = c;
+    }
+    return Math.floor(Math.random() * (b - a + 1) + a);
+}
+
+

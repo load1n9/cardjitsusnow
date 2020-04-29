@@ -115,6 +115,7 @@ class gameScene extends Phaser.Scene {
         if (this.somevar) {
             this.creategrid()
             this.somevar = false
+            
         }
         if (this.turn === true) {
             for (let y = 1; y < 6; y++) {
@@ -123,6 +124,10 @@ class gameScene extends Phaser.Scene {
                         if ((gridthing[y][x].x -player.x <= 200)&&(gridthing[y][x].y -player.y <= 200)) {
                             player.x = gridthing[y][x].x
                             player.y = gridthing[y][x].y
+                            player2.x = gridthing[y][x-1].x
+                            player2.y = gridthing[y][x-1].y
+                            player3.x = gridthing[y][x+1].x
+                            player3.y = gridthing[y][x+1].y
                             this.turn = false
                         }
                     });
@@ -133,8 +138,15 @@ class gameScene extends Phaser.Scene {
                 for (let x = 1; x < 10; x++) {
                     gridthing[y][x].off('pointerdown')
                     gridthing[y][x].destroy()
+                    
                 }
             }
+            if(this.nextShot>this.time.now){return;}
+            this.nextShot = this.time.now + randomint(5000,10000); 
+            this.tank.x = gridthing[randomint(1,5)][randomint(1,9)].x
+            this.tank.y = gridthing[randomint(1,5)][randomint(1,9)].y
+            this.turn = true;
+            this.somevar = true;
         }
     }
 }
