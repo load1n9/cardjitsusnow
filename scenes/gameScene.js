@@ -30,33 +30,33 @@ class gameScene extends Phaser.Scene {
         this.y = 0;
         this.turn = true;
         if (scenething === 1) {
-            this.add.image(0, 0, 'background1').setOrigin(0, 0)
+            this.background = this.add.image(0, 0, 'background1').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
-            this.add.image(0, 298, 'foreground1').setOrigin(0, 0)
+            this.foreground = this.add.image(0, 298, 'foreground1').setOrigin(0, 0)
         } else if (scenething === 2) {
-            this.add.image(0, 0, 'background2').setOrigin(0, 0)
+            this.background = this.add.image(0, 0, 'background2').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
-            this.add.image(0, 298, 'foreground2').setOrigin(0, 0)
+            this.foreground = this.add.image(0, 298, 'foreground2').setOrigin(0, 0)
         } else {
-            this.add.image(0, 0, 'background3').setOrigin(0, 0)
+            this.background = this.add.image(0, 0, 'background3').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
         }
         this.tank = this.add.sprite(590, 210, "tank_idle").setOrigin(0, 0);
         this.sly = this.add.sprite(590, 350, "sly_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
-            this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
+            this.bottomui = this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(70, 70, "snowninja_idle").setOrigin(0, 0);
             player2 = this.add.sprite(70, 210, "fireninja_idle").setOrigin(0, 0);
             player3 = this.add.sprite(70, 350, "waterninja_idle").setOrigin(0, 0);
             this.add.image(326.5, 0, 'snowtimerbase').setOrigin(0, 0)
         } else if (playerelement === "water") {
-            this.add.image(222, 410, 'waterbottomui').setOrigin(0, 0)
+            this.bottomui = this.add.image(222, 410, 'waterbottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'watertimerbase').setOrigin(0, 0)
             player = this.add.sprite(70, 70, "waterninja_idle").setOrigin(0, 0);
             player2 = this.add.sprite(70, 210, "fireninja_idle").setOrigin(0, 0);
             player3 = this.add.sprite(70, 350, "snowninja_idle").setOrigin(0, 0);
         } else if (playerelement === "fire") {
-            this.add.image(222, 413, 'firebottomui').setOrigin(0, 0)
+            this.bottomui = this.add.image(222, 413, 'firebottomui').setOrigin(0, 0)
             this.add.image(326.5, 0, 'firetimerbase').setOrigin(0, 0)
             player = this.add.sprite(70, 70, "fireninja_idle").setOrigin(0, 0);
             player2 = this.add.sprite(70, 210, "waterninja_idle").setOrigin(0, 0);
@@ -124,6 +124,8 @@ class gameScene extends Phaser.Scene {
         if (this.somevar) {
             this.creategrid()
             this.somevar = false
+            this.bottomui.depth = 1;
+            this.foreground.depth = 1;
             player.depth = 1
             player2.depth = 1
             player3.depth = 1
