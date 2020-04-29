@@ -124,6 +124,11 @@ class gameScene extends Phaser.Scene {
         if (this.somevar) {
             this.creategrid()
             this.somevar = false
+            player.depth = 1
+            player2.depth = 1
+            player3.depth = 1
+            this.tank.depth = 1
+            this.sly.depth = 1
             
         }
         if (this.turn === true) {
@@ -133,10 +138,10 @@ class gameScene extends Phaser.Scene {
                         if ((gridthing[y][x].x -player.x <= 200)&&(gridthing[y][x].y -player.y <= 200)) {
                             player.x = gridthing[y][x].x
                             player.y = gridthing[y][x].y
-                            player2.x = gridthing[y][x+randomint(-3,3)].x
-                            player2.y = gridthing[y][x+randomint(-3,3)].y
-                            player3.x = gridthing[y][x+randomint(-3,3)].x
-                            player3.y = gridthing[y][x+randomint(-3,3)].y
+                            player2.x = gridthing[y+randomint(-1,1)][x+randomint(-1,1)].x
+                            player2.y = gridthing[y+randomint(-1,1)][x+randomint(-1,1)].y
+                            player3.x = gridthing[y+randomint(-1,1)][x+randomint(-1,1)].x
+                            player3.y = gridthing[y+randomint(-1,1)][x+randomint(-1,1)].y
                             this.turn = false
                         }
                     });
