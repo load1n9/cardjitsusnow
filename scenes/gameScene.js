@@ -22,6 +22,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('fireninja_idle', 'assets/images/fire_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
         this.load.spritesheet('waterninja_idle', 'assets/images/water_ninja/idlecustom.png', { frameWidth: 88, frameHeight: 92 });
         this.load.spritesheet('tank_idle', 'assets/images/enemy/tankidlecustom.png', { frameWidth: 100, frameHeight: 100 });
+        this.load.spritesheet('sly_idle', 'assets/images/enemy/slyidlecustom.png', { frameWidth: 77, frameHeight: 77 });
     }
     create() {
         this.somevar = true;
@@ -41,6 +42,7 @@ class gameScene extends Phaser.Scene {
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
         }
         this.tank = this.add.sprite(590, 210, "tank_idle").setOrigin(0, 0);
+        this.sly = this.add.sprite(590, 350, "sly_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
             this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(70, 70, "snowninja_idle").setOrigin(0, 0);
@@ -85,7 +87,14 @@ class gameScene extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
+        this.anims.create({
+            key: 'sly_idle_animation',
+            frames: this.anims.generateFrameNumbers('sly_idle', { start: 0, end: 7 }),
+            frameRate: 5,
+            repeat: -1
+        });
         this.tank.anims.play('tank_idle_animation')
+        this.sly.anims.play('sly_idle_animation')
         if (playerelement === "fire") {
             player.anims.play('fireninja_idle_animation')
             player2.anims.play('waterninja_idle_animation')
@@ -145,6 +154,8 @@ class gameScene extends Phaser.Scene {
             this.nextShot = this.time.now + randomint(5000,10000); 
             this.tank.x = gridthing[randomint(1,5)][randomint(1,9)].x
             this.tank.y = gridthing[randomint(1,5)][randomint(1,9)].y
+            this.sly.x = gridthing[randomint(1,5)][randomint(1,9)].x
+            this.sly.y = gridthing[randomint(1,5)][randomint(1,9)].y
             this.turn = true;
             this.somevar = true;
         }
