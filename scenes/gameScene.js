@@ -23,6 +23,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('waterninja_idle', 'assets/images/water_ninja/idlecustom.png', { frameWidth: 88, frameHeight: 92 });
         this.load.spritesheet('tank_idle', 'assets/images/enemy/tankidlecustom.png', { frameWidth: 100, frameHeight: 100 });
         this.load.spritesheet('sly_idle', 'assets/images/enemy/slyidlecustom.png', { frameWidth: 77, frameHeight: 77 });
+        this.load.spritesheet('scrap_idle', 'assets/images/enemy/scrapidlecustom.png', { frameWidth: 77, frameHeight: 77 });
     }
     create() {
         this.somevar = true;
@@ -43,6 +44,7 @@ class gameScene extends Phaser.Scene {
         }
         this.tank = this.add.sprite(590, 210, "tank_idle").setOrigin(0, 0);
         this.sly = this.add.sprite(590, 350, "sly_idle").setOrigin(0, 0);
+        this.scrap = this.add.sprite(590, 70, "sly_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
             this.bottomui = this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(70, 70, "snowninja_idle").setOrigin(0, 0);
@@ -93,8 +95,15 @@ class gameScene extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
+        this.anims.create({
+            key: 'scrap_idle_animation',
+            frames: this.anims.generateFrameNumbers('scrap_idle', { start: 0, end: 52 }),
+            frameRate: 5,
+            repeat: -1
+        });
         this.tank.anims.play('tank_idle_animation')
         this.sly.anims.play('sly_idle_animation')
+        this.scrap.anims.play('scrap_idle_animation')
         if (playerelement === "fire") {
             player.anims.play('fireninja_idle_animation')
             player2.anims.play('waterninja_idle_animation')
@@ -131,6 +140,7 @@ class gameScene extends Phaser.Scene {
             player3.depth = 1
             this.tank.depth = 1
             this.sly.depth = 1
+            this.scrap.depth = 1
             
         }
         if (this.turn === true) {
@@ -163,6 +173,8 @@ class gameScene extends Phaser.Scene {
             this.tank.y = gridthing[randomint(1,5)][randomint(1,9)].y
             this.sly.x = gridthing[randomint(1,5)][randomint(1,9)].x
             this.sly.y = gridthing[randomint(1,5)][randomint(1,9)].y
+            this.scrap.x = gridthing[randomint(1,5)][randomint(1,9)].x
+            this.scrap.y = gridthing[randomint(1,5)][randomint(1,9)].y
             this.turn = true;
             this.somevar = true;
         }
