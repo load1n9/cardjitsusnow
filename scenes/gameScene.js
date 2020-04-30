@@ -37,9 +37,10 @@ class gameScene extends Phaser.Scene {
         } else if (scenething === 2) {
             this.background = this.add.image(0, 0, 'background2').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
-            this.foreground = this.add.image(0, 298, 'foreground2').setOrigin(0, 0)
+            this.foreground = this.add.image(0, 0, 'foreground2').setOrigin(0, 0)
         } else {
             this.background = this.add.image(0, 0, 'background3').setOrigin(0, 0)
+            this.foreground = this.add.image(0, 298, 'foreground1').setOrigin(0, 0)
             //this.add.image(100, 80, 'frame').setOrigin(0, 0)
         }
         this.tank = this.add.sprite(590, 210, "tank_idle").setOrigin(0, 0);

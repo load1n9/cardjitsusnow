@@ -6,7 +6,7 @@ var bgmsmenu  = {
     mute: false,
     loop: true
 }
-var scenething = 1;
+var scenething = randomint(0,2);
 
 
 var playerelement = "snow"
