@@ -4,7 +4,8 @@ class gameScene extends Phaser.Scene {
         super("gameScene")
     }
     preload() {
-        this.load.image('tile', 'assets/images/tile_move.png')
+        this.load.image('tile', 'assets/images/tile_no_move.png')
+        this.load.image('tile_move', 'assets/images/tile_move.png')
         this.load.image("frame", "assets/images/frame.png")
         this.load.image('background1', 'assets/images/background_1.png');
         this.load.image('foreground1', 'assets/images/foreground_1.png');
@@ -18,12 +19,15 @@ class gameScene extends Phaser.Scene {
         this.load.image('watertimerbase', 'assets/images/water_timer/base.png');
         this.load.image('firetimerbase', 'assets/images/fire_timer/base.png');
         this.load.audio('backgroundmusicgame', 'sounds/mus_mg_201303_cjsnow_gamewindamb.mp3');
+        this.load.audio('snow_appear','sounds/sfx_mg_2013_cjsnow_snowmenappear.mp3')
         this.load.spritesheet('snowninja_idle', 'assets/images/snow_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
+        this.load.spritesheet('snowninja_attack', 'assets/images/snow_ninja/attackcustom.png', { frameWidth: 100, frameHeight: 77 });
         this.load.spritesheet('fireninja_idle', 'assets/images/fire_ninja/idlecustom.png', { frameWidth: 77, frameHeight: 52 });
         this.load.spritesheet('waterninja_idle', 'assets/images/water_ninja/idlecustom.png', { frameWidth: 88, frameHeight: 92 });
         this.load.spritesheet('tank_idle', 'assets/images/enemy/tankidlecustom.png', { frameWidth: 100, frameHeight: 100 });
         this.load.spritesheet('sly_idle', 'assets/images/enemy/slyidlecustom.png', { frameWidth: 77, frameHeight: 77 });
         this.load.spritesheet('scrap_idle', 'assets/images/enemy/scrapidlecustom.png', { frameWidth: 77, frameHeight: 77 });
+        this.load.spritesheet('sly_move', 'assets/images/enemy/slymovecustom.png', { frameWidth: 77, frameHeight: 77 });
     }
     create() {
         this.somevar = true;
@@ -45,7 +49,7 @@ class gameScene extends Phaser.Scene {
         }
         this.tank = this.add.sprite(590, 210, "tank_idle").setOrigin(0, 0);
         this.sly = this.add.sprite(590, 350, "sly_idle").setOrigin(0, 0);
-        this.scrap = this.add.sprite(590, 70, "sly_idle").setOrigin(0, 0);
+        this.scrap = this.add.sprite(590, 70, "scrap_idle").setOrigin(0, 0);
         if (playerelement === "snow") {
             this.bottomui = this.add.image(222, 410, 'snowbottomui').setOrigin(0, 0)
             player = this.add.sprite(70, 70, "snowninja_idle").setOrigin(0, 0);
@@ -66,11 +70,18 @@ class gameScene extends Phaser.Scene {
             player3 = this.add.sprite(70, 350, "snowninja_idle").setOrigin(0, 0);
         }
         this.sound.play('backgroundmusicgame', bgms);
+        this.sound.play('snow_appear');
         this.anims.create({
             key: 'snowninja_idle_animation',
             frames: this.anims.generateFrameNumbers('snowninja_idle', { start: 0, end: 9 }),
             frameRate: 5,
             repeat: -1
+        });
+      this.anims.create({
+            key: 'snowninja_attack_animation',
+            frames: this.anims.generateFrameNumbers('snowninja_attack', { start: 0, end: 3 }),
+            frameRate: 5,
+            repeat: 0
         });
         this.anims.create({
             key: 'fireninja_idle_animation',
@@ -102,6 +113,12 @@ class gameScene extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
+      this.anims.create({
+            key: 'sly_move_animation',
+            frames: this.anims.generateFrameNumbers('sly_move', { start: 0, end: 7 }),
+            frameRate: 5,
+            repeat: -1
+        });
         this.tank.anims.play('tank_idle_animation')
         this.sly.anims.play('sly_idle_animation')
         this.scrap.anims.play('scrap_idle_animation')
@@ -123,7 +140,13 @@ class gameScene extends Phaser.Scene {
                 for (let x = 1; x < 10; x++) {
                     let xpos = x * 70;
                     let ypos = y * 70;
-                    gridthing[y][x] = this.add.image(xpos, ypos, 'tile').setOrigin(0, 0).setInteractive();
+                     if ((gridthing[y][x].x -player.x <= 200)&&(gridthing[y][x].y -player.y <= 200)) {
+                       
+                        gridthing[y][x] = this.add.image(xpos, ypos, 'tile_move').setOrigin(0, 0).setInteractive();
+                       
+                     } else {
+                       gridthing[y][x] = this.add.image(xpos, ypos, 'tile').setOrigin(0, 0).setInteractive();
+                     }
                 }
             }
         }
@@ -168,7 +191,9 @@ class gameScene extends Phaser.Scene {
                     
                 }
             }
-            if(this.nextShot>this.time.now){return;}
+            if(this.nextShot>this.time.now){
+              return;
+            }
             this.nextShot = this.time.now + randomint(5000,10000); 
             this.tank.x = gridthing[randomint(1,5)][randomint(1,9)].x
             this.tank.y = gridthing[randomint(1,5)][randomint(1,9)].y
